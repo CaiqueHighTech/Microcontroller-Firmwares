@@ -70,7 +70,7 @@ void loop(){
   Serial.println(currentState);
  }
  // Controla os LEDs baseado no estado atual
- controlSemaphore(currentstate);
+ controlSemaphore(currentState);
 }
 
 /**
