@@ -1,5 +1,6 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
+#define LED 13
 
 // Configuração do display LCD I2C
 // Endereço I2C: 0x27, 16 colunas, 2 linhas 
@@ -9,7 +10,11 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 const int pinoLM35 = A0;
 
 void setup(){
-    // Inicializa comunicação serial para debug
+  
+    // Configura o pino do LED
+    pinMode(LED, OUTPUT);
+    
+    // Inicializa comunicação serial para debug.
     Serial.begin(9600);
 
     // Inicializa o display LCD
@@ -48,10 +53,13 @@ void loop(){
     delay(1000); // Aguarda 1 segundo antes da próxima leitura
 
     if (temperaturaC >= 40.0) {
-        // Se a temperatura for maior que 30°C, exibe alerta
+        // Se a temperatura for maior que 40°C, exibe alerta
         lcd.setCursor(0, 0);
         lcd.print("Alerta: Alta T! ");
         Serial.println("Alerta: Alta T!");
+        digitalWrite(LED, HIGH);
+        delay(100);
+        digitalWrite(LED, LOW);
     } else {
         // Limpa o alerta se a temperatura estiver normal
         lcd.setCursor(0, 0);
